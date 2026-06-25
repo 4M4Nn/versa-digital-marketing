@@ -1,30 +1,31 @@
 import type { Metadata } from "next"
-import { Space_Grotesk } from "next/font/google"
+import { Space_Grotesk, Inter } from "next/font/google"
 import "./globals.css"
+import LenisProvider from "@/components/providers/LenisProvider"
 import Navbar from "@/components/layout/Navbar"
 import Footer from "@/components/layout/Footer"
-import CustomCursor from "@/components/CustomCursor"
-import FloatingWhatsApp from "@/components/FloatingWhatsApp"
-import MobileStickyCTA from "@/components/MobileStickyCTA"
+import FloatingWhatsApp from "@/components/layout/FloatingWhatsApp"
 
-const grotesk = Space_Grotesk({ subsets: ["latin"], variable: "--font-grotesk" })
+const spaceGrotesk = Space_Grotesk({ subsets: ["latin"], weight: ["300","400","500","600","700"], variable: "--font-space", display: "swap" })
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" })
 
 export const metadata: Metadata = {
-  title: "Versa Digital — AI-Powered Digital Marketing Kerala",
-  description: "AI-powered digital marketing agency. 3x traffic, 5x engagement, 4x ROAS. SEO, social media, performance marketing, video production.",
-  keywords: ["digital marketing agency Kerala", "AI marketing", "SEO Kerala", "performance marketing Kochi"],
+  title: "Versa Digital — Performance Marketing Agency Kochi | SEO, Ads, Social Media",
+  description: "Kerala's top performance marketing agency. SEO, Google Ads, Social Media Marketing and Web Design. 200+ brands scaled. 340% avg organic growth.",
+  keywords: ["digital marketing Kochi", "SEO agency Kerala", "Google Ads Kerala", "performance marketing India", "social media agency Kochi"],
+  openGraph: { title: "Versa Digital — Performance Marketing Agency", description: "200+ brands scaled. Data-driven digital marketing.", type: "website" },
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={grotesk.variable}>
-      <body className="bg-[#050816] text-white antialiased">
-        <CustomCursor />
-        <Navbar />
-        {children}
-        <Footer />
-        <FloatingWhatsApp />
-        <MobileStickyCTA />
+    <html lang="en" className={`${spaceGrotesk.variable} ${inter.variable}`}>
+      <body className="bg-[#060D0F] text-white overflow-x-hidden">
+        <LenisProvider>
+          <Navbar />
+          {children}
+          <Footer />
+          <FloatingWhatsApp />
+        </LenisProvider>
       </body>
     </html>
   )

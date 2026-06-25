@@ -1,22 +1,20 @@
-import type { Config } from "tailwindcss";
-const config: Config = {
+﻿import type { Config } from "tailwindcss"
+export default {
   darkMode: "class",
-  content: ["./src/pages/**/*.{js,ts,jsx,tsx,mdx}", "./src/components/**/*.{js,ts,jsx,tsx,mdx}", "./src/app/**/*.{js,ts,jsx,tsx,mdx}"],
+  content: ["./src/**/*.{js,ts,jsx,tsx,mdx}"],
   theme: {
     extend: {
       colors: {
-        background: "#050816",
-        accent: "#00D4FF",
-        secondary: "#6E44FF",
-        subtext: "#8892B0",
+        bg: "#060D0F", "bg-alt": "#0A1518",
+        cyan: "#00C9B8", "cyan-light": "#00E5D4",
+        purple: "#8B5CF6", "purple-light": "#A78BFA",
+        "off-white": "#E8F0EF", "text-muted": "#6B8080",
       },
       fontFamily: {
-        grotesk: ["var(--font-grotesk)"],
-        inter: ["var(--font-inter)"],
+        space: ["var(--font-space)", "sans-serif"],
+        inter: ["var(--font-inter)", "sans-serif"],
       },
-      borderRadius: { lg: "var(--radius)", md: "calc(var(--radius) - 2px)", sm: "calc(var(--radius) - 4px)" },
     },
   },
-  plugins: [require("tailwindcss-animate")],
-};
-export default config;
+  plugins: [],
+} satisfies Config

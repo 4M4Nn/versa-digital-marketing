@@ -1,28 +1,32 @@
-import { siteConfig } from "@/lib/data"
+"use client"
+import { siteConfig, services } from "@/lib/data"
 export default function Footer() {
   return (
-    <footer className="bg-[#030510] border-t border-[#00D4FF]/10 py-12 px-6">
-      <div className="max-w-7xl mx-auto">
-        <div className="flex flex-col md:flex-row justify-between items-center gap-8 mb-8">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#00D4FF] to-[#6E44FF] flex items-center justify-center">
-              <span className="text-white font-bold text-sm">VD</span>
-            </div>
-            <div>
-              <p className="text-white font-bold">Versa Digital</p>
-              <p className="text-[#00D4FF] text-xs">AI-Powered Digital Marketing</p>
-            </div>
+    <footer className="bg-[#030709] border-t border-[#00C9B8]/10 pt-16 pb-8">
+      <div className="max-w-6xl mx-auto px-6 md:px-12">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+          <div>
+            <p className="font-space font-bold text-xl text-white mb-3">VERSA <span className="text-[#00C9B8]">DIGITAL</span></p>
+            <p className="text-white/40 text-sm font-inter leading-relaxed">Kerala&apos;s performance marketing agency. Part of Versa Growth Ventures.</p>
           </div>
-          <div className="flex gap-8 text-[#8892B0] text-sm">
-            <a href="#services" className="hover:text-white transition-colors">Services</a>
-            <a href="#results" className="hover:text-white transition-colors">Results</a>
-            <a href="#contact" className="hover:text-white transition-colors">Contact</a>
+          <div>
+            <p className="label text-[#00C9B8] mb-4">Services</p>
+            <ul className="space-y-2">{services.map(s => <li key={s.id}><a href="#services" className="text-sm text-white/40 hover:text-white transition-colors font-inter">{s.short}</a></li>)}</ul>
           </div>
-          <div className="text-[#8892B0] text-sm">{siteConfig.phone}</div>
+          <div>
+            <p className="label text-[#00C9B8] mb-4">Company</p>
+            <ul className="space-y-2">{[["About","#hero"],["Industries","#industries"],["Work With Us","#contact"]].map(([l,h]) => <li key={l}><a href={h} className="text-sm text-white/40 hover:text-white transition-colors font-inter">{l}</a></li>)}</ul>
+          </div>
+          <div>
+            <p className="label text-[#00C9B8] mb-4">Contact</p>
+            <ul className="space-y-2 text-sm text-white/40 font-inter">
+              <li>{siteConfig.phone}</li><li>{siteConfig.email}</li><li>{siteConfig.location}</li>
+            </ul>
+          </div>
         </div>
-        <div className="border-t border-[#00D4FF]/10 pt-6 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-[#8892B0] text-sm">© {new Date().getFullYear()} Versa Digital · A Versa Growth Ventures Company</p>
-          <p className="text-[#8892B0] text-sm">Built by <span className="text-[#00D4FF]">Loopgen Technologies</span></p>
+        <div className="border-t border-white/5 pt-6 flex flex-col md:flex-row justify-between gap-2">
+          <p className="text-xs text-white/20 font-inter">© {new Date().getFullYear()} Versa Digital | Part of Versa Growth Ventures</p>
+          <p className="text-xs text-white/20 font-inter">Designed by Loopgen Technologies</p>
         </div>
       </div>
     </footer>

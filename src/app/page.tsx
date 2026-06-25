@@ -1,21 +1,27 @@
-import type { Metadata } from "next"
-import DigitalHero from "@/components/sections/DigitalHero"
-import DigitalServices from "@/components/sections/DigitalServices"
-import DigitalMetrics from "@/components/sections/DigitalMetrics"
-import DigitalContact from "@/components/sections/DigitalContact"
-
-export const metadata: Metadata = {
-  title: "Versa Digital — AI-Powered Digital Marketing Kerala",
-  description: "AI-powered digital marketing agency. 3x traffic, 5x engagement, 4x ROAS. Kochi, Kerala.",
-}
+import LoadingScreen from "@/components/loading/LoadingScreen"
+import HeroSection from "@/components/sections/HeroSection"
+import NumbersSection from "@/components/sections/NumbersSection"
+import ServicesSection from "@/components/sections/ServicesSection"
+import StatementSection from "@/components/sections/StatementSection"
+import IndustriesSection from "@/components/sections/IndustriesSection"
+import TestimonialsSection from "@/components/sections/TestimonialsSection"
+import ContactSection from "@/components/sections/ContactSection"
+import MobileStickyBar from "@/components/ui/MobileStickyBar"
 
 export default function HomePage() {
   return (
-    <main>
-      <DigitalHero />
-      <DigitalMetrics />
-      <DigitalServices />
-      <DigitalContact />
-    </main>
+    <>
+      <LoadingScreen />
+      <main>
+        <HeroSection />
+        <NumbersSection />
+        <ServicesSection />
+        <StatementSection />
+        <IndustriesSection />
+        <TestimonialsSection />
+        <ContactSection />
+      </main>
+      <MobileStickyBar />
+    </>
   )
 }
