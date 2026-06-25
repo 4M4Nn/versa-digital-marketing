@@ -1,4 +1,4 @@
-import LoadingScreen from "@/components/loading/LoadingScreen"
+import ClientEntry from "@/components/loading/ClientEntry"
 import HeroSection from "@/components/sections/HeroSection"
 import NumbersSection from "@/components/sections/NumbersSection"
 import ServicesSection from "@/components/sections/ServicesSection"
@@ -10,8 +10,7 @@ import MobileStickyBar from "@/components/ui/MobileStickyBar"
 
 export default function HomePage() {
   return (
-    <>
-      <LoadingScreen />
+    <ClientEntry>
       <main>
         <HeroSection />
         <NumbersSection />
@@ -22,6 +21,6 @@ export default function HomePage() {
         <ContactSection />
       </main>
       <MobileStickyBar />
-    </>
+    </ClientEntry>
   )
 }
