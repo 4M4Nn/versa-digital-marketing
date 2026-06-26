@@ -1,37 +1,46 @@
 "use client"
 import { useState, useEffect } from "react"
+import Link from "next/link"
 import { motion, AnimatePresence } from "framer-motion"
-
-const links = [{ label: "Services", href: "#services" }, { label: "Industries", href: "#industries" }, { label: "Results", href: "#testimonials" }, { label: "Contact", href: "#contact" }]
+import { Menu, X } from "lucide-react"
+import { NAV_LINKS, WHATSAPP } from "@/lib/data"
 
 export default function Navbar() {
-  const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const [open, setOpen] = useState(false)
   useEffect(() => {
-    const fn = () => setScrolled(window.scrollY > 10)
-    window.addEventListener("scroll", fn); fn()
-    return () => window.removeEventListener("scroll", fn)
+    const onScroll = () => setScrolled(window.scrollY > 40)
+    window.addEventListener("scroll", onScroll)
+    return () => window.removeEventListener("scroll", onScroll)
   }, [])
   return (
     <>
-      <nav className={`fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 md:px-12 transition-all duration-300 ${scrolled ? "bg-[#060D0F]/95 backdrop-blur border-b border-[#00C9B8]/10 shadow-lg" : "bg-transparent"}`} style={{ height: 64 }}>
-        <a href="#" className="font-space font-bold text-xl text-white tracking-tight">VERSA <span className="text-[#00C9B8]">DIGITAL</span></a>
-        <div className="hidden md:flex items-center gap-8">
-          {links.map(l => <a key={l.href} href={l.href} className="text-sm text-[#6B8080] hover:text-[#00C9B8] transition-colors font-inter">{l.label}</a>)}
+      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? "bg-[#050816]/95 backdrop-blur-md border-b border-[#00D4FF]/10" : "bg-transparent"}`}>
+        <div className="max-w-7xl mx-auto px-6 flex items-center justify-between h-16">
+          <Link href="/" className="font-space-grotesk text-xl font-bold">
+            <span className="text-[#00D4FF]">Versa</span><span className="text-white">Digital</span>
+          </Link>
+          <div className="hidden md:flex items-center gap-6">
+            {NAV_LINKS.map(l => (
+              <Link key={l.href} href={l.href} className="text-xs tracking-widest text-[#6B8080] hover:text-[#00D4FF] transition-colors uppercase">{l.label}</Link>
+            ))}
+            <a href={`https://wa.me/${WHATSAPP}`} target="_blank" rel="noopener noreferrer"
+              className="text-xs px-4 py-2 border border-[#00D4FF] text-[#00D4FF] hover:bg-[#00D4FF] hover:text-[#050816] transition-all tracking-widest">GET AUDIT</a>
+          </div>
+          <button className="md:hidden text-[#00D4FF]" onClick={() => setOpen(true)}><Menu size={22} /></button>
         </div>
-        <a href="#contact" className="hidden md:inline-flex items-center px-5 py-2.5 border border-[#00C9B8] text-[#00C9B8] hover:bg-[#00C9B8] hover:text-[#060D0F] font-space font-semibold text-sm transition-all rounded-sm">Get Started</a>
-        <button className="md:hidden p-2 flex flex-col gap-1.5" onClick={() => setOpen(!open)}>
-          <motion.span animate={open ? { rotate: 45, y: 8 } : { rotate: 0, y: 0 }} className="block w-6 h-px bg-[#00C9B8]" />
-          <motion.span animate={open ? { opacity: 0 } : { opacity: 1 }} className="block w-6 h-px bg-[#00C9B8]" />
-          <motion.span animate={open ? { rotate: -45, y: -8 } : { rotate: 0, y: 0 }} className="block w-6 h-px bg-[#00C9B8]" />
-        </button>
       </nav>
       <AnimatePresence>
         {open && (
-          <motion.div initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="fixed inset-x-0 top-16 z-40 bg-[#060D0F] border-b border-[#00C9B8]/20 px-6 py-6 flex flex-col gap-4">
-            {[...links, { label: "Get Started", href: "#contact" }].map(l => (
-              <a key={l.href} href={l.href} onClick={() => setOpen(false)} className="text-lg font-space text-white hover:text-[#00C9B8] transition-colors">{l.label}</a>
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] bg-[#050816] flex flex-col items-center justify-center gap-7">
+            <button className="absolute top-5 right-6 text-[#00D4FF]" onClick={() => setOpen(false)}><X size={24} /></button>
+            {NAV_LINKS.map((l, i) => (
+              <motion.div key={l.href} initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: i * 0.06 }}>
+                <Link href={l.href} className="text-2xl text-white hover:text-[#00D4FF] transition-colors font-space-grotesk font-bold" onClick={() => setOpen(false)}>{l.label}</Link>
+              </motion.div>
             ))}
+            <a href={`https://wa.me/${WHATSAPP}`} target="_blank" rel="noopener noreferrer" className="mt-4 px-8 py-3 border border-[#00D4FF] text-[#00D4FF] text-sm tracking-widest">Free Audit</a>
           </motion.div>
         )}
       </AnimatePresence>

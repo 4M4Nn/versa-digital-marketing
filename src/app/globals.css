@@ -1,32 +1,294 @@
 @import "tailwindcss";
-:root { --cyan:#00C9B8;--cyan-light:#00E5D4;--purple:#8B5CF6; }
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{-webkit-font-smoothing:antialiased}
-body{background:#060D0F;color:#fff;font-family:var(--font-inter),sans-serif;overflow-x:hidden}
-::selection{background:rgba(0,201,184,.2);color:#fff}
-.word-wrap{display:inline-block;overflow:hidden;margin-right:.28em}
-.word{display:inline-block;will-change:transform}
-.label{font-size:11px;letter-spacing:3px;text-transform:uppercase;font-family:var(--font-space),sans-serif}
-@keyframes pulse-wa{0%,100%{box-shadow:0 0 0 0 rgba(37,211,102,.4)}70%{box-shadow:0 0 0 12px rgba(37,211,102,0)}}
-@keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-@keyframes glow{0%,100%{opacity:.3}50%{opacity:.7}}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-18px)}}
-@keyframes floatSlow{0%,100%{transform:translateY(0)}50%{transform:translateY(-24px)}}
-@keyframes pulseGlow{0%,100%{box-shadow:0 0 15px rgba(0,212,200,.3)}50%{box-shadow:0 0 45px rgba(0,212,200,.8),0 0 90px rgba(0,212,200,.2)}}
-@keyframes orbit{from{transform:rotate(0deg) translateX(var(--r,80px)) rotate(0deg)}to{transform:rotate(360deg) translateX(var(--r,80px)) rotate(-360deg)}}
-@keyframes spinSlow{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
-@keyframes drift{0%{transform:translate(0,0);opacity:.4}50%{transform:translate(40px,-30px);opacity:.7}100%{transform:translate(0,0);opacity:.4}}
-@keyframes gradientShift{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
-@keyframes shimmer{from{background-position:-200% 0}to{background-position:200% 0}}
-@keyframes binary-rain{0%{transform:translateY(-20px);opacity:0}10%{opacity:.15}90%{opacity:.15}100%{transform:translateY(100vh);opacity:0}}
-@keyframes chartRise{from{height:0}to{height:var(--h,60%)}}
-@keyframes bar-rise{from{transform:scaleY(0);transform-origin:bottom}to{transform:scaleY(1);transform-origin:bottom}}
-@keyframes scanLine{0%{top:0;opacity:.8}100%{top:100%;opacity:0}}
-@keyframes fadeSlideUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
-@keyframes ripple{0%{transform:scale(1);opacity:.6}100%{transform:scale(3.5);opacity:0}}
-@keyframes particle-rise{0%{transform:translateY(0) scale(1);opacity:.8}100%{transform:translateY(-120px) scale(0);opacity:0}}
-@keyframes typing{from{width:0}to{width:100%}}
-@keyframes blinkCursor{50%{border-color:transparent}}
-@keyframes neuralPulse{0%,100%{opacity:.2;transform:scale(1)}50%{opacity:.8;transform:scale(1.4)}}
-@keyframes glow-pulse{0%,100%{opacity:.15}50%{opacity:.4}}
-@keyframes matrixFall{0%{transform:translateY(-100%);opacity:0}5%{opacity:1}95%{opacity:1}100%{transform:translateY(100vh);opacity:0}}
+
+@layer base {
+  :root {
+    --bg: #050816;
+    --bg-alt: #080f1f;
+    --cyan: #00D4FF;
+    --cyan-dim: #00A8CC;
+    --white: #F0F4FF;
+    --gray: #94A3B8;
+    --accent2: #7B4FFF;
+    --radius: 0.75rem;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    background-color: var(--bg);
+    color: var(--white);
+  }
+
+  body {
+    font-family: var(--font-inter), sans-serif;
+    background-color: var(--bg);
+    color: var(--white);
+    overflow-x: hidden;
+  }
+
+  ::selection {
+    background: var(--cyan);
+    color: var(--bg);
+  }
+
+  ::-webkit-scrollbar {
+    width: 4px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--bg);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--cyan-dim);
+    border-radius: 2px;
+  }
+}
+
+/* ============================================
+   KEYFRAME ANIMATIONS
+   ============================================ */
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-12px); }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 8px var(--cyan), 0 0 16px rgba(0, 212, 255, 0.3); }
+  50% { box-shadow: 0 0 20px var(--cyan), 0 0 40px rgba(0, 212, 255, 0.6), 0 0 60px rgba(0, 212, 255, 0.2); }
+}
+
+@keyframes matrixFall {
+  0% { transform: translateY(-100%); opacity: 1; }
+  80% { opacity: 1; }
+  100% { transform: translateY(100vh); opacity: 0; }
+}
+
+@keyframes scanLine {
+  0% { top: 0%; }
+  100% { top: 100%; }
+}
+
+@keyframes chartRise {
+  0% { height: 0; }
+  100% { height: var(--bar-h, 60%); }
+}
+
+@keyframes bar-rise {
+  from { transform: scaleY(0); transform-origin: bottom; }
+  to { transform: scaleY(1); transform-origin: bottom; }
+}
+
+@keyframes typing {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@keyframes blinkCursor {
+  0%, 100% { border-color: var(--cyan); }
+  50% { border-color: transparent; }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes ripple {
+  0% { transform: scale(1); opacity: 0.8; }
+  100% { transform: scale(2.5); opacity: 0; }
+}
+
+@keyframes pulse-wa {
+  0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.5); }
+  50% { transform: scale(1.08); box-shadow: 0 0 0 12px rgba(37, 211, 102, 0); }
+}
+
+@keyframes neuralPulse {
+  0% { opacity: 0.2; transform: scale(0.95); }
+  50% { opacity: 1; transform: scale(1.05); }
+  100% { opacity: 0.2; transform: scale(0.95); }
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes moneyBurn {
+  0% { opacity: 1; transform: translateY(0) scale(1); }
+  50% { opacity: 0.6; transform: translateY(-8px) scale(0.9); filter: hue-rotate(30deg); }
+  100% { opacity: 0; transform: translateY(-20px) scale(0.5); }
+}
+
+@keyframes dashboardPulse {
+  0%, 100% { opacity: 0.7; }
+  50% { opacity: 1; }
+}
+
+@keyframes slideInLeft {
+  from { opacity: 0; transform: translateX(-40px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(40px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes countUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes rotateSlow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes flickerIn {
+  0% { opacity: 0; }
+  10% { opacity: 1; }
+  20% { opacity: 0.3; }
+  30% { opacity: 1; }
+  100% { opacity: 1; }
+}
+
+/* ============================================
+   UTILITY CLASSES
+   ============================================ */
+
+.animate-float { animation: float 3s ease-in-out infinite; }
+.animate-pulse-glow { animation: pulseGlow 2s ease-in-out infinite; }
+.animate-matrix-fall { animation: matrixFall 3s linear infinite; }
+.animate-scan-line { animation: scanLine 2s linear infinite; }
+.animate-bar-rise { animation: bar-rise 1s ease-out forwards; }
+.animate-typing { animation: typing 2s steps(30) forwards; }
+.animate-blink-cursor { animation: blinkCursor 0.8s step-end infinite; }
+.animate-shimmer { animation: shimmer 2s linear infinite; }
+.animate-fade-slide-up { animation: fadeSlideUp 0.6s ease-out forwards; }
+.animate-ripple { animation: ripple 1.5s ease-out infinite; }
+.animate-pulse-wa { animation: pulse-wa 2s ease-in-out infinite; }
+.animate-neural-pulse { animation: neuralPulse 2s ease-in-out infinite; }
+.animate-gradient-shift { animation: gradientShift 4s ease infinite; background-size: 200% 200%; }
+.animate-dashboard-pulse { animation: dashboardPulse 3s ease-in-out infinite; }
+.animate-rotate-slow { animation: rotateSlow 20s linear infinite; }
+.animate-flicker-in { animation: flickerIn 0.5s ease-out forwards; }
+.animate-count-up { animation: countUp 0.8s ease-out forwards; }
+.animate-slide-in-left { animation: slideInLeft 0.6s ease-out forwards; }
+.animate-slide-in-right { animation: slideInRight 0.6s ease-out forwards; }
+
+/* Cyan glow text */
+.text-cyan-glow {
+  color: var(--cyan);
+  text-shadow: 0 0 10px rgba(0, 212, 255, 0.8), 0 0 20px rgba(0, 212, 255, 0.4);
+}
+
+/* Gradient text */
+.text-gradient {
+  background: linear-gradient(135deg, var(--cyan) 0%, var(--accent2) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Glass card */
+.glass-card {
+  background: rgba(8, 15, 31, 0.7);
+  border: 1px solid rgba(0, 212, 255, 0.15);
+  backdrop-filter: blur(12px);
+  border-radius: var(--radius);
+}
+
+.glass-card:hover {
+  border-color: rgba(0, 212, 255, 0.4);
+  box-shadow: 0 0 24px rgba(0, 212, 255, 0.1);
+}
+
+/* Cyan border glow */
+.border-cyan-glow {
+  border: 1px solid var(--cyan);
+  box-shadow: 0 0 12px rgba(0, 212, 255, 0.4), inset 0 0 12px rgba(0, 212, 255, 0.05);
+}
+
+/* Section padding */
+.section-pad {
+  padding: 5rem 1.5rem;
+}
+
+@media (min-width: 768px) {
+  .section-pad {
+    padding: 7rem 2rem;
+  }
+}
+
+/* Shimmer button */
+.btn-shimmer {
+  background: linear-gradient(90deg, var(--cyan-dim) 0%, var(--cyan) 50%, var(--cyan-dim) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 2s linear infinite;
+  color: var(--bg);
+  font-weight: 700;
+  border-radius: 0.5rem;
+  transition: transform 0.2s;
+}
+
+.btn-shimmer:hover {
+  transform: scale(1.03);
+}
+
+/* Dashboard card animation */
+.dashboard-card {
+  animation: dashboardPulse 3s ease-in-out infinite;
+}
+
+/* Matrix character */
+.matrix-char {
+  font-family: monospace;
+  color: var(--cyan);
+  font-size: 14px;
+  line-height: 1.2;
+  text-shadow: 0 0 6px var(--cyan);
+}
+
+/* Scan line overlay */
+.scan-overlay {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+  animation: scanLine 3s linear infinite;
+  pointer-events: none;
+}
+
+/* Fade in on scroll (JS-triggered) */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Number counter glow */
+.stat-number {
+  font-family: var(--font-space), sans-serif;
+  font-size: clamp(2rem, 5vw, 4rem);
+  font-weight: 800;
+  color: var(--cyan);
+  text-shadow: 0 0 20px rgba(0, 212, 255, 0.6);
+}
