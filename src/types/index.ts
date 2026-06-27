@@ -1,18 +1,41 @@
 export interface Service {
-  id: string; name: string; emoji: string; short: string
-  problem: string; pain: string; solution: string
-  steps: { title: string; desc: string }[]
-  results: string; color: string
+  id: string
+  name: string
+  tagline: string
+  description: string
+  image: string
+  color: string
+  results: string
+  features: string[]
 }
-export interface Founder {
-  name: string; role: string; monogram: string; color: string; bio: string; quote: string
+
+export interface Result {
+  metric: string
+  label: string
+  description: string
 }
+
+export interface Testimonial {
+  name: string
+  company: string
+  role: string
+  quote: string
+  rating: number
+  result: string
+}
+
 export interface BlogPost {
-  slug: string; title: string; date: string; excerpt: string; tag: string; body: string
+  slug: string
+  title: string
+  date: string
+  excerpt: string
+  image: string
+  category: string
+  body: string
 }
-export interface FAQ { q: string; a: string }
-export interface Scheme { title: string; desc: string; cta: string; tag: string }
-export interface NavLink { label: string; href: string }
-export interface PortfolioItem {
-  client: string; industry: string; result: string; service: string; color: string
+
+export interface Stat {
+  value: number
+  suffix: string
+  label: string
 }

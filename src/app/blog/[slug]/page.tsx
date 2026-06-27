@@ -1,29 +1,57 @@
 import type { Metadata } from "next"
 import { notFound } from "next/navigation"
 import Link from "next/link"
-import { BLOG_POSTS, WA_URL } from "@/lib/data"
-type Props = { params: Promise<{ slug: string }> }
-export async function generateStaticParams() { return BLOG_POSTS.map(p => ({ slug: p.slug })) }
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = await params
-  const p = BLOG_POSTS.find(x => x.slug === slug)
-  return p ? { title: p.title, description: p.excerpt } : {}
+import Image from "next/image"
+import { ArrowLeft } from "lucide-react"
+import { BLOG_POSTS, SITE } from "@/lib/data"
+
+export async function generateStaticParams() {
+  return BLOG_POSTS.map((p) => ({ slug: p.slug }))
 }
-export default async function BlogPostPage({ params }: Props) {
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params
-  const post = BLOG_POSTS.find(p => p.slug === slug)
+  const post = BLOG_POSTS.find((p) => p.slug === slug)
+  if (!post) return { title: "Not Found" }
+  return { title: post.title, description: post.excerpt, openGraph: { images: [post.image] } }
+}
+
+export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params
+  const post = BLOG_POSTS.find((p) => p.slug === slug)
   if (!post) notFound()
+
+  const waUrl = `https://wa.me/91${SITE.phone.replace(/\D/g, "").slice(-10)}`
+
   return (
-    <div className="pt-24 bg-[#050816] min-h-screen">
-      <article className="py-16 px-6 max-w-3xl mx-auto">
-        <Link href="/blog" className="text-[#00D4FF] text-xs tracking-widest uppercase mb-6 inline-block">← BLOG</Link>
-        <span className="text-xs px-2 py-1 rounded block mb-4 w-fit" style={{ background:"#00D4FF20", color:"#00D4FF" }}>{post.tag}</span>
-        <h1 className="font-space-grotesk text-4xl font-bold text-white mb-6 leading-tight">{post.title}</h1>
-        <p className="text-[#6B8080] text-lg leading-relaxed mb-8 border-l-2 border-[#00D4FF] pl-4 italic">{post.excerpt}</p>
-        <div className="space-y-4">{post.body.split("\n\n").map((p, i) => <p key={i} className="text-[#6B8080] leading-relaxed">{p}</p>)}</div>
-        <div className="mt-12 p-6 rounded-2xl border border-[#00D4FF]/20 text-center" style={{ background:"rgba(0,212,255,0.05)" }}>
-          <p className="font-space-grotesk text-xl font-bold text-white mb-3">Ready to Grow Your Business?</p>
-          <a href={WA_URL} target="_blank" rel="noopener noreferrer" className="inline-block mt-2 px-8 py-3 bg-[#00D4FF] text-[#050816] font-bold text-sm tracking-widest uppercase">Get Free Audit</a>
+    <div className="bg-[#050816]">
+      <div className="max-w-3xl mx-auto px-4 pt-8">
+        <Link href="/blog" className="inline-flex items-center gap-2 text-[#00D4FF] text-sm font-medium hover:gap-3 transition-all">
+          <ArrowLeft size={16} /> Back to Blog
+        </Link>
+      </div>
+
+      <article className="max-w-3xl mx-auto px-4 py-8">
+        <span className="inline-block bg-[#00D4FF]/10 text-[#00D4FF] text-xs font-semibold px-3 py-1 rounded-full mb-4">{post.category}</span>
+        <h1 className="font-space-grotesk text-3xl md:text-4xl font-bold text-white mb-4">{post.title}</h1>
+        <p className="text-slate-500 text-sm mb-6">{post.date} · Versa Digital Team</p>
+
+        <div className="relative h-64 md:h-80 rounded-2xl overflow-hidden shadow-2xl mb-10">
+          <Image src={post.image} alt={post.title} fill className="object-cover opacity-70" />
+        </div>
+
+        <div className="space-y-5">
+          {post.body.split("\n\n").filter(Boolean).map((para, i) => (
+            <p key={i} className="text-slate-300 leading-relaxed">{para.trim()}</p>
+          ))}
+        </div>
+
+        <div className="mt-12 bg-[#00D4FF]/5 border border-[#00D4FF]/20 rounded-2xl p-8 text-center">
+          <h3 className="font-space-grotesk text-2xl font-bold text-white mb-3">Ready to Grow Your Business?</h3>
+          <p className="text-slate-400 mb-6">Get a free digital marketing audit from our experts.</p>
+          <a href={waUrl} target="_blank" rel="noopener noreferrer" className="inline-block bg-[#00D4FF] text-[#0A0F1E] font-bold px-7 py-3 rounded-full hover:bg-[#0099CC] transition-colors">
+            Get Free Audit
+          </a>
         </div>
       </article>
     </div>
