@@ -5,6 +5,7 @@ import Navbar from "@/components/layout/Navbar"
 import Footer from "@/components/layout/Footer"
 import FloatingWhatsApp from "@/components/layout/FloatingWhatsApp"
 import MobileStickyBar from "@/components/layout/MobileStickyBar"
+import IntroWrapper from "@/components/ui/IntroWrapper"
 import { SITE } from "@/lib/data"
 
 const spaceGrotesk = Space_Grotesk({ subsets: ["latin"], variable: "--font-space-grotesk", display: "swap" })
@@ -22,6 +23,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`${spaceGrotesk.variable} ${inter.variable}`}>
       <body className="bg-[#050816] font-inter antialiased">
+        <IntroWrapper />
         <Navbar />
         <main className="pt-[64px] md:pt-[88px]">{children}</main>
         <Footer />
