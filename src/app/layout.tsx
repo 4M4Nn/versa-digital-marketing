@@ -22,10 +22,10 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${spaceGrotesk.variable} ${inter.variable}`}>
-      <body className="bg-[#050816] font-inter antialiased">
+      <body className="bg-[#050816] font-inter antialiased overflow-x-hidden">
         <IntroWrapper />
         <Navbar />
-        <main className="pt-[64px] md:pt-[88px]">{children}</main>
+        <main className="pt-[64px] md:pt-[88px] pb-16 md:pb-0 overflow-x-hidden">{children}</main>
         <Footer />
         <FloatingWhatsApp />
         <MobileStickyBar />
